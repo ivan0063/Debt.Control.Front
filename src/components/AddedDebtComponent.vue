@@ -119,12 +119,12 @@ export default {
           label: 'Pago Mensual',
         },
         {
-          field: 'monthlyInstallment',
-          label: 'Mensualidad Actual',
-        },
-        {
           field: 'missingMonthlyPayments',
           label: 'Mensualidades Faltantes',
+        },
+        {
+          field: 'monthlyInstallment',
+          label: 'Mensualidad Actual',
         },
         {
           field: 'debtDuration',
@@ -142,9 +142,6 @@ export default {
     }
   },
   methods: {
-    addDebt(debt) {
-      this.localDebts.push(debt);
-    },
     editDebtInfo(index) {
       this.showEditModal = true;
       this.editDebtObject = this.localDebts[index];
@@ -166,7 +163,7 @@ export default {
     saveDebtInfo() {
       this.localDebts[this.currentEditingIndex] = this.editDebtObject;
       this.showEditModal = false;
-      this.$buefy.toast.open("Datos Editados de la deuda!")
+      this.$buefy.toast.open("Datos Editados de la deuda exitosamente!")
     }
   }
 }

@@ -10,17 +10,7 @@
 
     <div class="container">
 
-      <div class="columns">
-        <div class="column is-three-fifths">
-          <b-field label="Email">
-            <b-input type="email" maxlength="50" v-model="email"></b-input>
-          </b-field>
-        </div>
-
-        <div class="column is-pulled-left" id="button-section">
-          <b-button type="is-info" @click="validEmail">Valid User</b-button>
-        </div>
-      </div>
+      <valid-user :binding-email="email" @UserFoundEvent="getAllCardsByUser($event)"/>
 
       <add-debt-form :email="email" :cardsByUser="cardsByUser" :userName="userName"  v-if="enable"/>
 
@@ -33,18 +23,15 @@
  .hero{
    margin-bottom: 2%;
  }
-
- #button-section {
-   padding-top: 3.6%;
- }
 </style>
 
 <script>
 import AddDebtForm from "@/components/FormDebtComponent";
 import UserService from "../services/UserService"
+import ValidUser from "@/components/ValidUserComponent";
 
 export default {
-  components: {AddDebtForm},
+  components: {ValidUser, AddDebtForm},
   data() {
     return {
       email: '',
@@ -91,6 +78,23 @@ export default {
         })
       }
 
+    },
+    getAllCardsByUser(userInfo) {
+      console.log(userInfo);
+      this.userName = userInfo.name;
+      UserService.getCardsByUser(userInfo.email)
+          .then(response => {
+            this.cardsByUser = response.data.responseObject;
+            this.enable = true;
+          })
+          .catch(err => {
+            this.$buefy.toast.open({
+              duration: 5000,
+              message: 'Error no pude obtener las tarjetas del usuario ' + JSON.stringify(err),
+              position: 'is-bottom',
+              type: 'is-danger'
+            })
+          })
     }
   }
 }

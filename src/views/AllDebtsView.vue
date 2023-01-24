@@ -9,7 +9,9 @@
     </section>
 
     <div class="container">
-      <filter-debts-component />
+      <valid-user :binding-email="userInfo.email" @UserFoundEvent="setUserInfo($event)"/>
+
+      <filter-debts-component :user-email="userInfo.email" v-if="enableFilterSelection"/>
     </div>
 
   </div>
@@ -22,7 +24,23 @@
 </style>
 <script>
 import FilterDebtsComponent from "@/components/FilterDebtsComponent";
+import ValidUser from "@/components/ValidUserComponent";
+
 export default {
-  components: {FilterDebtsComponent}
+  components: {ValidUser, FilterDebtsComponent},
+  data() {
+    return {
+      userInfo: {},
+      enableFilterSelection: false
+    }
+  },
+  methods: {
+    setUserInfo(userInfo) {
+      console.log(userInfo);
+      this.userInfo = userInfo;
+      this.enableFilterSelection = true;
+    }
+  }
+
 }
 </script>

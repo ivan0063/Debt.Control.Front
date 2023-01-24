@@ -10,7 +10,21 @@ let addMultiDebt = (email, cardNickname, debts) => {
     return RestService.postRequest('/debt/multi/add', body);
 }
 
+let getDebtsByCard = (email, cardNickname) => {
+    return RestService.getRequest("/debt/all/card/" + cardNickname + "?email=" + email);
+}
+
+let getDebtsByUser = (email) => {
+    return RestService.getRequest("/debt/all/user?email=" + email);
+}
+
+let getFinishedDebts = (email) => {
+    return RestService.getRequest("/debt/finished/all/user?email=" + email);
+}
 
 export default {
-    addMultiDebt
+    addMultiDebt,
+    getDebtsByCard,
+    getDebtsByUser,
+    getFinishedDebts
 }

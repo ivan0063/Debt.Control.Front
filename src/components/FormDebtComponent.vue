@@ -121,7 +121,6 @@ export default {
       return valid;
     },
     saveDebt() {
-
       this.$buefy.dialog.confirm({
         message: 'Estas a punto de guardar ' + this.addedDebts.length + ' deudas, Quieres continuar?',
         onConfirm: () => {

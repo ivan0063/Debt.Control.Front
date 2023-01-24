@@ -1,5 +1,5 @@
 <template>
-  <div class="valid-user">
+  <div class="valid-user columns">
     <div class="column is-three-fifths">
       <b-field label="Email">
         <b-input type="email" maxlength="50" v-model="email"></b-input>
@@ -11,6 +11,12 @@
     </div>
   </div>
 </template>
+
+<style>
+  #button-section {
+    padding-top: 3.6%;
+  }
+</style>
 
 <script>
 import UserService from "@/services/UserService";
@@ -29,23 +35,7 @@ export default {
     validEmail() {
       if(this.email !== '') {
         UserService.userExist(this.email)
-            .then(response => {
-              this.userName = response.data.responseObject.name;
-              // this.$buefy.notification.open('Clicked!!');
-              UserService.getCardsByUser(this.email)
-                  .then(response => {
-                    this.cardsByUser = response.data.responseObject;
-                    this.enable = true;
-                  })
-                  .catch(err => {
-                    this.$buefy.toast.open({
-                      duration: 5000,
-                      message: 'Error no pude obtener las tarjetas del usuario ' + JSON.stringify(err),
-                      position: 'is-bottom',
-                      type: 'is-danger'
-                    })
-                  })
-            })
+            .then(response => this.$emit('UserFoundEvent', response.data.responseObject))
             .catch(err => {
               this.$buefy.toast.open({
                 duration: 5000,
