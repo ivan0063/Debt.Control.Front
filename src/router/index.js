@@ -27,6 +27,11 @@ const routes = [
     path: '/debt/all',
     name: 'AllDebts',
     component: () => import(/* webpackChunkName: "about" */ '../views/AllDebtsView.vue')
+  },
+  {
+    path: '/payment/do',
+    name: 'CardPayments',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CardPaymentView.vue')
   }
 ]
 

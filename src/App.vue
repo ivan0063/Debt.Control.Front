@@ -14,6 +14,15 @@
         <b-navbar-item href="#">
           <router-link to="/">Home</router-link>
         </b-navbar-item>
+
+        <b-navbar-item href="#">
+          <router-link to="/debt/add">Usuario</router-link>
+        </b-navbar-item>
+
+        <b-navbar-item href="#">
+          <router-link to="/debt/add">Proyecion de Pagos</router-link>
+        </b-navbar-item>
+
         <b-navbar-dropdown label="Deudas">
           <b-navbar-item href="#">
             <router-link to="/debt/add">Agregar Deudas</router-link>
@@ -25,6 +34,16 @@
             <router-link to="/about">About</router-link>
           </b-navbar-item>
         </b-navbar-dropdown>
+
+        <b-navbar-dropdown label="Pagos">
+          <b-navbar-item href="#">
+            <router-link to="/payment/do">Hacer Pago</router-link>
+          </b-navbar-item>
+          <b-navbar-item href="#">
+            <router-link to="/payment/view/all">Ver todos los pagos</router-link>
+          </b-navbar-item>
+        </b-navbar-dropdown>
+
       </template>
 
       <template #end>

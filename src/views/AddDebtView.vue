@@ -9,11 +9,9 @@
     </section>
 
     <div class="container">
-
       <valid-user :binding-email="email" @UserFoundEvent="getAllCardsByUser($event)"/>
 
       <add-debt-form :email="email" :cardsByUser="cardsByUser" :userName="userName"  v-if="enable"/>
-
     </div>
 
   </div>
@@ -26,9 +24,9 @@
 </style>
 
 <script>
-import AddDebtForm from "@/components/FormDebtComponent";
-import UserService from "../services/UserService"
+import AddDebtForm from "@/components/FormAddDebtComponent";
 import ValidUser from "@/components/ValidUserComponent";
+import UserService from "../services/UserService"
 
 export default {
   components: {ValidUser, AddDebtForm},
