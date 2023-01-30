@@ -20,7 +20,7 @@
         </b-navbar-item>
 
         <b-navbar-item href="#">
-          <router-link to="/debt/add">Proyecion de Pagos</router-link>
+          <router-link to="/debt/projection">Proyecion de Pagos</router-link>
         </b-navbar-item>
 
         <b-navbar-dropdown label="Deudas">
@@ -29,9 +29,6 @@
           </b-navbar-item>
           <b-navbar-item href="#">
             <router-link to="/debt/all">Ver Deudas</router-link>
-          </b-navbar-item>
-          <b-navbar-item href="#">
-            <router-link to="/about">About</router-link>
           </b-navbar-item>
         </b-navbar-dropdown>
 

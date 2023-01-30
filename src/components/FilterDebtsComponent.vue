@@ -55,11 +55,10 @@
                   size="is-small" />
             </template>
             <template v-slot="props">
-              {{ props.row[column.field] }}
+              {{ props.row[column.field] | toCurrency }}
             </template>
           </b-table-column>
         </b-table>
-
 
       </div>
     </div>
@@ -85,6 +84,18 @@ export default {
       cardFilter: false,
       cardNickname: null,
       cardsByUser: []
+    }
+  },
+  filters: {
+    toCurrency(value) {
+      if (typeof value !== "number") {
+        return value;
+      }
+      let formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      });
+      return formatter.format(value);
     }
   },
   methods: {

@@ -14,7 +14,7 @@
 
 <style>
   #button-section {
-    padding-top: 3.6%;
+    padding-top: 3.2%;
   }
 </style>
 

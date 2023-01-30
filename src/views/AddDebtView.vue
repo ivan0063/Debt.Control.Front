@@ -80,7 +80,8 @@ export default {
     getAllCardsByUser(userInfo) {
       console.log(userInfo);
       this.userName = userInfo.name;
-      UserService.getCardsByUser(userInfo.email)
+      this.email = userInfo.email;
+      UserService.getCardsByUser(this.email)
           .then(response => {
             this.cardsByUser = response.data.responseObject;
             this.enable = true;
