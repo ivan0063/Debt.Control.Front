@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'Home',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
   {
     path: '/debt/add',
@@ -29,7 +28,12 @@ const routes = [
     path: '/debt/projection',
     name: 'DebtProjection',
     component: () => import(/* webpackChunkName: "about" */ '../views/ProjectionView.vue')
-  }
+  },
+  {
+    path: '/user/financial/status',
+    name: 'UserFinancialStatus',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+  },
 ]
 
 const router = new VueRouter({

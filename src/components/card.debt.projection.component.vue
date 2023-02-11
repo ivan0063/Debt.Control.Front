@@ -1,7 +1,6 @@
 <template>
   <div class="card-debt-component">
     <div class="columns">
-
     </div>
   </div>
 </template>

@@ -22,9 +22,14 @@ let getFinishedDebts = (email) => {
     return RestService.getRequest("/debt/finished/all/user?email=" + email);
 }
 
+let getDebtAboutFinish = (email) => {
+    return RestService.getRequest("/debt/about/finish?email=" + email);
+}
+
 export default {
     addMultiDebt,
     getDebtsByCard,
     getDebtsByUser,
-    getFinishedDebts
+    getFinishedDebts,
+    getDebtAboutFinish
 }

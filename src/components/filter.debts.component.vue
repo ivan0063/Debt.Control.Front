@@ -24,42 +24,53 @@
       </div>
     </div>
 
-    <div class="columns" v-if="enableTable">
-      <div class="column">
-        <b-field grouped group-multiline>
-          <div v-for="(column, index) in tableColumns"
-               :key="index"
-               class="control-label">
-            <b-checkbox v-model="column.visible">
-              {{ column.label }}
-            </b-checkbox>
+    <div class="box" v-if="enableTable">
+      <div class="card-content">
+        <div class="columns">
+          <div class="column">
+            <b-field grouped group-multiline>
+              <div v-for="(column, index) in tableColumns"
+                   :key="index"
+                   class="control-label">
+                <b-checkbox v-model="column.visible">
+                  {{ column.label }}
+                </b-checkbox>
+              </div>
+            </b-field>
+
+            <b-table
+                :striped="true"
+                :hoverable="true"
+                :sticky-header="true"
+                :data="debtsData">
+              <b-table-column v-for="(column, index) in tableColumns"
+                              :key="index"
+                              :label="column.label"
+                              :visible="column.visible"
+                              :searchable="column.searchable"
+                              v-bind="column">
+                <template v-if="column.searchable && !column.numeric" #searchable="props">
+                  <b-input
+                      v-model="props.filters[props.column.field]"
+                      placeholder="Search..."
+                      icon="magnify"
+                      size="is-small" />
+                </template>
+                <template v-slot="props">
+                  {{ props.row[column.field] | toCurrency }}
+                </template>
+              </b-table-column>
+            </b-table>
           </div>
-        </b-field>
 
-        <b-table
-            :striped="true"
-            :hoverable="true"
-            :sticky-header="true"
-            :data="debtsData">
-          <b-table-column v-for="(column, index) in tableColumns"
-                          :key="index"
-                          :label="column.label"
-                          :visible="column.visible"
-                          :searchable="column.searchable"
-                          v-bind="column">
-            <template v-if="column.searchable && !column.numeric" #searchable="props">
-              <b-input
-                  v-model="props.filters[props.column.field]"
-                  placeholder="Search..."
-                  icon="magnify"
-                  size="is-small" />
-            </template>
-            <template v-slot="props">
-              {{ props.row[column.field] | toCurrency }}
-            </template>
-          </b-table-column>
-        </b-table>
+          <div class="column is-one-fifth" v-if="filterType === 'card'">
+            <section class="is-pulled-right">
+              <p> <b>PAGO MENSUAL:</b> {{cardMonthlyPayment | toCurrency}}</p>
+              <p> <b>TOTAL:</b> {{totalDebt | toCurrency}}</p>
+            </section>
+          </div>
 
+        </div>
       </div>
     </div>
   </div>
@@ -83,7 +94,9 @@ export default {
       // Card Filter
       cardFilter: false,
       cardNickname: null,
-      cardsByUser: []
+      cardsByUser: [],
+      totalDebt: 0.0,
+      cardMonthlyPayment: 0.0,
     }
   },
   filters: {
@@ -210,6 +223,13 @@ export default {
         DebtService.getFinishedDebts(this.userEmail)
             .then(response => {
               console.log(response.data.responseObject);
+              this.tableColumns.push({
+                field: 'cardNickname',
+                label: 'Tarjeta',
+                sortable: true,
+                searchable: true,
+                visible: true
+              });
               this.enableTable=true
               this.debtsData = response.data.responseObject;
             })
@@ -229,7 +249,9 @@ export default {
           .then(response => {
             console.log(response.data.responseObject);
             this.enableTable = true;
-            this.debtsData = response.data.responseObject;
+            this.debtsData = response.data.responseObject.debts;
+            this.totalDebt = response.data.responseObject.total;
+            this.cardMonthlyPayment = response.data.responseObject.monthlyPayment;
           })
           .catch(err => {
             console.error(JSON.stringify(err));

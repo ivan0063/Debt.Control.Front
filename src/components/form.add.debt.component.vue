@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-four-fifths">
         <b-field label="Tarjeta">
-          <b-select placeholder="Selecciona una tarjeta" v-model="cardNickname">
+          <b-select placeholder="Selecciona una tarjeta" v-model="cardNickname" @input="showAddForm=true">
             <option
                 v-for="(userCard, index) in cardsByUser"
                 :key="index"
@@ -13,11 +13,11 @@
       </div>
 
       <div class="column is-half">
-        <p class="title">Hola {{userName}}</p>
+        <p class="title user-name">¡Bienvenido {{userName}}!</p>
       </div>
     </div>
 
-    <div class="columns">
+    <div class="columns" v-if="showAddForm">
       <div class="column is-full">
         <div class="box">
           <div class="card-content">
@@ -59,7 +59,7 @@
       </div>
     </div> <!--columns1-->
 
-    <div class="columns">
+    <div class="columns" v-if="showAddForm">
       <div class="column is-full">
         <b-button type="is-warning" @click="saveDebt">Guardar las Deudas</b-button>
       </div>
@@ -67,8 +67,14 @@
   </section>
 </template>
 
+<style>
+  .user-name {
+    color: #167df0;
+  }
+</style>
+
 <script>
-import AddedDebts from "@/components/AddedDebtComponent";
+import AddedDebts from "@/components/added.debt.component";
 import DebtService from "../services/DebtService";
 
 export default {
@@ -90,6 +96,7 @@ export default {
         monthlyAmount: null
       },
       pendingInstallmentType: false,
+      showAddForm: false,
       addedDebts: [],
     }
   },

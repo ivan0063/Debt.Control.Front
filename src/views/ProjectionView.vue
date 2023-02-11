@@ -75,11 +75,11 @@
 </style>
 
 <script>
-import ValidUser from "@/components/ValidUserComponent";
+import ValidUser from "@/components/valid.user.component";
 import UserService from "@/services/UserService";
 import ProjectionService from "@/services/ProjectionService";
-import SavingsProjection from "@/components/SavingsProjectionComponent";
-import CardDebtProjection from "@/components/CardDebtProjection";
+import SavingsProjection from "@/components/savings.projection.component";
+import CardDebtProjection from "@/components/card.debt.projection.component";
 
 export default {
   components: {CardDebtProjection, SavingsProjection, ValidUser},

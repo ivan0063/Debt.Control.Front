@@ -2,9 +2,9 @@
   <div class="add-debt">
     <section class="hero is-info">
       <div class="hero-body">
-        <p class="title"> Debts</p>
+        <p class="title"> Deudas</p>
 
-        <p class="subtitle">All Debts</p>
+        <p class="subtitle">Ver todas las deudas</p>
       </div>
     </section>
 
@@ -23,8 +23,8 @@
   }
 </style>
 <script>
-import FilterDebtsComponent from "@/components/FilterDebtsComponent";
-import ValidUser from "@/components/ValidUserComponent";
+import FilterDebtsComponent from "@/components/filter.debts.component";
+import ValidUser from "@/components/valid.user.component";
 
 export default {
   components: {ValidUser, FilterDebtsComponent},

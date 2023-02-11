@@ -69,12 +69,13 @@
 </style>
 
 <script>
-import ValidUser from "@/components/ValidUserComponent";
+import ValidUser from "@/components/valid.user.component";
 import UserService from "@/services/UserService";
 import DebtService from "@/services/DebtService";
 import CardService from "@/services/CardService";
 
 export default {
+  name: 'DoCardPayment',
   components: {ValidUser},
   data() {
     return {

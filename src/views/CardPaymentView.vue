@@ -23,7 +23,7 @@
 </style>
 
 <script>
-import DoCardPaymentComponent from "@/components/DoCardPaymentComponent";
+import DoCardPaymentComponent from "@/components/do.card.payment.component";
 
 export default {
   components: {DoCardPaymentComponent},

@@ -24,8 +24,8 @@
 </style>
 
 <script>
-import AddDebtForm from "@/components/FormAddDebtComponent";
-import ValidUser from "@/components/ValidUserComponent";
+import AddDebtForm from "@/components/form.add.debt.component";
+import ValidUser from "@/components/valid.user.component";
 import UserService from "../services/UserService"
 
 export default {
