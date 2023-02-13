@@ -107,13 +107,13 @@
                   </b-field>
                   <hr>
                   <p class="is-pulled-right">
-                    <b>PAGO DEL MES: </b> {{totalPagoMes | toCurrency}}
+                    <b>PAGO MESES SIN INTERESES: </b> {{totalPagoMes | toCurrency}}
                   </p>
                 </div>
               </div>
 
               <br><hr>
-              <p class="title">Pagos fijos para el dia {{ ((new Date()).getDay() <= 15) ? '15' : '30' }}</p>
+              <p class="title">Pagos Fijos para el dia {{ ((new Date()).getDay() <= 15) ? '15' : '30' }}</p>
               <div class="content">
                 <hr>
                 <div class="content">
@@ -124,13 +124,15 @@
                   </b-field>
                   <hr>
                   <p class="is-pulled-right">
-                    <b>PAGO DEL MES: </b> {{TotalNextFixedExpenses | toCurrency}}
+                    <b>PAGO GASTOS FIJOS: </b> {{TotalNextFixedExpenses | toCurrency}}
                   </p>
                 </div>
               </div>
-              <p class="is-pulled-right">
-                <b>PAGO DEL MES: </b> {{TotalNextFixedExpenses + totalPagoMes | toCurrency}}
-              </p>
+
+              <div class="final_total card is-pulled-left">
+                <b>PAGO ESTIMADO DEL MES: </b> {{TotalNextFixedExpenses + totalPagoMes | toCurrency}}
+              </div>
+
             </div>
           </article>
         </div>
@@ -201,6 +203,11 @@
 <style>
 .hero {
   margin-bottom: 2%;
+}
+
+.final_total {
+  padding: 5%;
+  margin-top: 20%;
 }
 </style>
 

@@ -33,7 +33,7 @@
             <router-link to="/payment/do">Hacer Pago</router-link>
           </b-navbar-item>
           <b-navbar-item href="#">
-            <router-link to="/payment/view/all">Ver pagos realizados</router-link>
+            <router-link to="/payments/made">Ver pagos realizados</router-link>
           </b-navbar-item>
         </b-navbar-dropdown>
 

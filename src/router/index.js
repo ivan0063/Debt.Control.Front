@@ -34,6 +34,11 @@ const routes = [
     name: 'UserFinancialStatus',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   },
+  {
+    path: '/payments/made',
+    name: 'PaymentsMade',
+    component: () => import(/* webpackChunkName: "about" */ '../views/PaymentsMadeView.vue')
+  },
 ]
 
 const router = new VueRouter({

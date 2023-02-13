@@ -3,9 +3,9 @@
 
     <section class="hero is-success">
       <div class="hero-body">
-        <p class="title"> Payments</p>
+        <p class="title"> Pagos</p>
 
-        <p class="subtitle">Do a card payment</p>
+        <p class="subtitle">Hacer un pago</p>
       </div>
     </section>
 

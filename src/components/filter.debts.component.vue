@@ -125,6 +125,7 @@ export default {
           field: 'totalAmount',
           label: 'Total de la Deuda',
           sortable: true,
+          searchable: true,
           visible: true
         },
         {
@@ -152,6 +153,7 @@ export default {
         {
           field: 'monthlyPayment',
           label: 'Pago Mensual',
+          searchable: true,
           visible: true
         }
       ]

@@ -28,6 +28,12 @@
                   :data="debtsData"
                   :columns="tableColumns"
               />
+
+              <br>
+              <p class="is-pulled-right has-text-weight-bold">
+                Monto Total:  {{ monthPayment }}
+              </p>
+
             </div>
           </div>
         </div>
@@ -109,7 +115,8 @@ export default {
       ],
       cardsByUser: [],
       debtsData: [],
-      updatedDebts: []
+      updatedDebts: [],
+      monthPayment: 0.0
     }
   },
   methods: {
@@ -136,7 +143,8 @@ export default {
           .then(response => {
             console.log("Data debts: ", response.data);
             this.enablePaymentSection = true;
-            this.debtsData = response.data.responseObject;
+            this.debtsData = response.data.responseObject.debts;
+            this.monthPayment = response.data.responseObject.monthlyPayment;
             if(this.debtsData.length === 0) this.buttonActive = false;
           })
           .catch(err => {
