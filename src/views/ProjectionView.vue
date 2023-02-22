@@ -158,7 +158,16 @@ export default {
       ProjectionService.getSavingsProjection({"projectionUntil": this.dateSelected, "email": this.email})
           .then(response => {
             this.showSavingsProjection = true;
-            this.projectionData = response.data.responseObject;
+            this.projectionData = Object.keys(response.data.responseObject)
+            .map((key) => {
+              return {
+                month: key,
+                monthlyDebtPayment: response.data.responseObject[key].monthlyDebtPayment,
+                extraMonthSaving: response.data.responseObject[key].extraMonthSaving,
+                savingsTotal: response.data.responseObject[key].savingsTotal,
+                debts: response.data.responseObject[key].debts
+              }
+            });
           })
           .catch(err => {
             console.error(err);

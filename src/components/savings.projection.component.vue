@@ -6,7 +6,7 @@
         <div class="card">
           <div class="card-content">
             <div class="content">
-              <p class="black">Salario:</p> {{ savingsProjection.salary  | toCurrency }}
+              <p class="black">Salario:</p> {{ salary | toCurrency }}
             </div>
           </div>
         </div>
@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-content">
             <div class="content">
-              <p class="black">Ahorro Actual:</p> {{ savingsProjection.currentSavings  | toCurrency }}
+              <p class="black">Ahorro Actual:</p> {{ currentSavings  | toCurrency }}
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
                 :aria-controls="'contentIdForA11y5-' + 0"
                 :aria-expanded="props.open">
               <p class="card-header-title">
-                Gastos Fijos: {{ savingsProjection.fixedMonthlyPayment | toCurrency }}
+                Gastos Fijos: {{ fixedMonthlyPayment | toCurrency }}
               </p>
               <a class="card-header-icon">
                 <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"/>
@@ -54,20 +54,42 @@
         <div class="content">
 
           <b-table
-              :striped="true"
-              :hoverable="true"
-              :sticky-header="true"
-              :data="savingsProjection.monthRows">
-            <b-table-column v-for="(column, index) in projectionColumns"
-                            :key="index"
-                            :label="column.label"
-                            :visible="column.visible"
-                            :searchable="column.searchable"
-                            v-bind="column">
-              <template v-slot="props">
-                {{ props.row[column.field] | toCurrency}}
-              </template>
+              :data="savingsProjection"
+              ref="table"
+              detailed
+              detail-key="month"
+              @details-open="(row) => $buefy.toast.open(`Expanded ${row.month}`)"
+              :show-detail-icon="true">
+
+            <b-table-column field="month" label="MES" numeric v-slot="props">
+              {{ props.row.month }}
             </b-table-column>
+
+            <b-table-column field="monthlyDebtPayment" label="Pago de Deudas del mes" sortable v-slot="props">
+              {{ props.row.monthlyDebtPayment | toCurrency }}
+            </b-table-column>
+
+            <b-table-column field="extraMonthSaving" label="Ahorro del mes" sortable v-slot="props">
+              {{ props.row.extraMonthSaving | toCurrency }}
+            </b-table-column>
+
+            <b-table-column field="savingsTotal" label="Total Ahorrado del Mes" sortable centered v-slot="props">
+                <span class="tag is-success has-text-weight-bold" style="font-size: 1.2em">
+                    {{ props.row.savingsTotal | toCurrency}}
+                </span>
+            </b-table-column>
+
+            <template #detail="props">
+              <ul class="is-card-list">
+                <li class="has-text-weight-bold">BANAMEX: {{ props.row.debts['BANAMEX'] }}</li>
+                <li class="has-text-weight-bold">HSBC: {{ props.row.debts['HSBC'] }}</li>
+                <li class="has-text-weight-bold">BBVA: {{ props.row.debts['BBVA'] }}</li>
+                <li class="has-text-weight-bold">PALACIO: {{ props.row.debts['PALACIO'] }}</li>
+                <li class="has-text-weight-bold">LIVERPOOL: {{ props.row.debts['LIVERPOOL'] }}</li>
+                <li class="has-text-weight-bold">MERCADO PAGO: {{ props.row.debts['MERCADO_PAGO'] }}</li>
+                <li class="has-text-weight-bold">RAPPI: {{ props.row.debts['RAPPI'] }}</li>
+              </ul>
+            </template>
           </b-table>
 
 
@@ -91,12 +113,24 @@
 
 <script>
 import CatalogService from "@/services/CatalogService";
+import UserService from "@/services/UserService";
 
 export default {
   name: 'SavingsProjection',
   props: {
     savingsProjection: Object,
     email: String
+  },
+  async created() {
+    let userFinancialStatus = (await UserService.getFinancialStatus(this.email)).data.responseObject;
+    this.fixedExpenses = (await CatalogService.getFixedExpensesByUser(this.email)).data.responseObject;
+    this.salary = userFinancialStatus.incomes.find(element => element.incomeName === "Sueldo").Amount;
+    this.currentSavings = userFinancialStatus.incomes.find(element => element.incomeName === "Ahorro").Amount;
+    this.fixedExpenses.forEach(elem => this.fixedMonthlyPayment += elem.amount);
+
+
+    console.log(this.fixedMonthlyPayment)
+    console.log(this.fixedExpenses)
   },
   data() {
     return {
@@ -118,25 +152,13 @@ export default {
           label: 'Dia de pago',
         }
       ],
-      projectionColumns: [
-        {
-          field: 'month',
-          label: 'Mes',
-        },
-        {
-          field: 'monthlyDebtPayment',
-          label: 'Pago de Deudas del mes',
-        },
-        {
-          field: 'extraMonthSaving',
-          label: 'Ahorro del mes',
-        },
-        {
-          field: 'savingsTotal',
-          label: 'Total Ahorrado del Mes',
-        }
-      ],
-      fixedExpenses: []
+      fixedExpenses: [],
+      defaultOpenedDetails: [1],
+      showDetailIcon: true,
+      useTransition: true,
+      salary: 0.0,
+      currentSavings: 0.0,
+      fixedMonthlyPayment: 0.0
     }
   },
   filters: {
@@ -152,22 +174,7 @@ export default {
     }
   },
   methods: {
-    fixedExpensesOpenEvent() {
-      CatalogService.getFixedExpensesByUser(this.email)
-          .then(response => {
-            console.log("fixed-expenses", response.data)
-            this.fixedExpenses = response.data.responseObject;
-          })
-          .catch(err => {
-            console.log("fixed-expenses error", err);
-            this.$buefy.toast.open({
-              duration: 5000,
-              message: 'No pude obtener los gastos fijos del usuario',
-              position: 'is-bottom',
-              type: 'is-danger'
-            })
-          })
-    }
+    fixedExpensesOpenEvent() {}
   }
 }
 </script>
