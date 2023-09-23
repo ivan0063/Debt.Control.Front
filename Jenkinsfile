@@ -14,11 +14,11 @@ pipeline {
       }
     }
 
-    stage('Build') {
-      steps {
+    //stage('Build') {
+      //steps {
         // add the building part
-      }
-    }
+      //}
+    //}
     
   }
 }
