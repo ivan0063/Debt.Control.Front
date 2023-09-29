@@ -4,7 +4,7 @@
 
     <section class="hero is-link">
       <div class="hero-body">
-        <p class="title">HOME</p>
+        <p class="title">Inicio</p>
 
         <p class="subtitle">Estatus Financiero</p>
       </div>
@@ -64,7 +64,7 @@
                     </b-table>
                   </div>
                 </div>
-                <p class="title">Informacion de Deudas</p>
+                <p class="title">Información de Deudas</p>
                 <hr>
 
                 <div class="columns">
