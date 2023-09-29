@@ -1,0 +1,8 @@
+version: '3'
+services:
+  homeassistant:
+    container_name: debts_control_front
+    image: "jimm0063.debts.control.front:latest"
+    restart: unless-stopped
+    ports:
+      - '5000:8080'
