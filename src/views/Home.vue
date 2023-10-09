@@ -89,6 +89,12 @@
                   <div class="column subtitle">Deudas en total:</div>
                   <div class="column has-text-weight-bold">{{ userFinancialStatus.debtCount }} deudas</div>
                 </div>
+
+                <div class="columns">
+                  <div class="column subtitle">Total Gastos Fijos:</div>
+                  <div class="column has-text-weight-bold">{{ userFinancialStatus.totalFixedExpenses }} deudas</div>
+                </div>
+
               </article>
             </div>
           </div>
