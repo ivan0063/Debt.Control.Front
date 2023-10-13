@@ -92,7 +92,7 @@
 
                 <div class="columns">
                   <div class="column subtitle">Total Gastos Fijos:</div>
-                  <div class="column has-text-weight-bold">{{ userFinancialStatus.totalFixedExpenses }} deudas</div>
+                  <div class="column has-text-weight-bold">{{ userFinancialStatus.totalFixedExpenses | toCurrency }} deudas</div>
                 </div>
 
               </article>
